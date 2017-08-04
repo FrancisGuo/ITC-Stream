@@ -26,12 +26,12 @@ MP3Addr.append('/home/pi/Documents/ITC/PlaySelected/02.Disconnected-Pegboard Ner
 #MP3Addr.append('/home/pi/Documents/ITC/PlaySelected/03.惑星間コミュニケーション-monaca_factory.mp3')
 MP3Addr.append('/home/pi/Documents/ITC/PlaySelected/Ring/C/hungUp.mp3')
 #USER
-Host = '192.168.8.10'#IP address of the server
+Host = ''#IP address of the server
 TCPPort = 8000#Command port
 UDPPort = 15001#Data port
 #USER
-user = 'gbs'#User
-password = 'gbs'#Password of the user
+user = ''#User
+password = ''#Password of the user
 #USER
 playvol = 22#Volume of session
 termsel = ',46'#',130,131,132,133'#Term of session/Fill as ",n,m"
