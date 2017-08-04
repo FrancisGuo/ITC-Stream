@@ -8,7 +8,7 @@
 #v2 started at 0525
 #v2 ended at 0528
 #v3 started at 0529
-#last modified at 0529
+#last modified at 0603
 
 import socket
 import struct
@@ -18,9 +18,13 @@ import time
 MP3Addr = []
 
 #USER
-FileNum = 1
-MP3Addr.append('/media/pi/PORB_DISK0/Ring/C/dingdong.mp3')
-MP3Addr.append('/home/pi/Documents/ITC/PlaySelected/I Wanna Be Your World-ryo.mp3')
+FileNum = 3
+MP3Addr.append('/home/pi/Documents/ITC/PlaySelected/Ring/C/dingdong.mp3')
+MP3Addr.append('/home/pi/Documents/ITC/PlaySelected/02.Disconnected-Pegboard Nerds.mp3')
+#MP3Addr.append('/home/pi/Documents/ITC/PlaySelected/22.Evergreen-yuxuki waga.mp3')
+#MP3Addr.append('/home/pi/Documents/ITC/PlaySelected/21.Frisbee-Ahxello.mp3')
+#MP3Addr.append('/home/pi/Documents/ITC/PlaySelected/03.惑星間コミュニケーション-monaca_factory.mp3')
+MP3Addr.append('/home/pi/Documents/ITC/PlaySelected/Ring/C/hungUp.mp3')
 #USER
 Host = '192.168.8.10'#IP address of the server
 TCPPort = 8000#Command port
@@ -29,12 +33,13 @@ UDPPort = 15001#Data port
 user = 'gbs'#User
 password = 'gbs'#Password of the user
 #USER
-playvol = 25#Volume of session
-termsel = ',127'#Term of session/Fill as ",n,m"
+playvol = 22#Volume of session
+termsel = ',46'#',130,131,132,133'#Term of session/Fill as ",n,m"
 #USER
 LogAddr = '/home/pi/Documents/ITC/Log'
 #USER
 IsTest = False
+GetInfo = False
 #USER
 
 file = b''
@@ -104,6 +109,7 @@ def TCPStage1():
     TermL = s.recv(rbsize)
     ConMsg('Term:'+str(TermL,'gbk'))
     s.send(b'group list')
+    t.sleep(0.5)
     GroupL = s.recv(rbsize)
     ConMsg('Group:'+str(GroupL,'gbk'))
     
@@ -193,7 +199,8 @@ def UDPStage():
     for UFrameID in range(0,framenum):
         IDFrame = struct.pack('>i',UFrameID)
         u.sendto(IDHeader+IDFrame+frame[UFrameID],(Host,UDPPort))
-        t.sleep(0.0255)
+        t.sleep(0.02567)
+    u.close()
     ConMsg('UDP data transmitting done.')
 
 def RmAllSession():
@@ -217,7 +224,7 @@ def RmAllSession():
     TCPStage5()
     TCPStage6()
 
-def Play(TestFlag):
+def Play(TestFlag,GetInfoFlag):
     try:
         MP3P()
     except:
@@ -230,7 +237,8 @@ def Play(TestFlag):
         else:
             try:
                 TCPStage0()
-                #TCPStage1()
+                if GetInfoFlag == True:
+                    TCPStage1()
             except:
                 ConMsg('Error:Controling before creating session')
             else:
@@ -274,8 +282,12 @@ if __name__ == '__main__':
             u = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
             LocalMsg('Start----------------')
             LocalMsg('GMT:'+t.strftime('%Y-%m-%d %X',t.gmtime(t.time())))
+            if IsTest == True :
+                LocalMsg('Test Mode')
+            if GetInfo == True :
+                LocalMsg('Get Term and Group info')
             #RmAllSession()
-            Play(IsTest)
+            Play(IsTest,GetInfo)
         except:
             LocalMsg('Error unknow')
         finally:
