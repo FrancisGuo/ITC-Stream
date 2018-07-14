@@ -21,24 +21,21 @@ MP3Addr = []
 
 #USER
 FileNum = 3
-MP3Addr.append('/home/pi/Documents/ITCTask/PlaySelected/Ring/C/dingdong.mp3')
-MP3Addr.append('/home/pi/Documents/ITCTask/PlaySelected/「交织together」 - DMYoung,Hanser,泠鸢yousa.mp3')
+MP3Addr.append('/home/demo.mp3')
 #MP3Addr.append('')
-#MP3Addr.append('')
-MP3Addr.append('/home/pi/Documents/ITCTask/PlaySelected/Ring/C/hungUp.mp3')
 #USER
-Host = '192.168.8.10'#IP address of the server
+Host = '192.168.1.1'#IP address of the server
 TCPPort = 8000#Command port
 UDPPort = 15001#Data port
 #USER
-user = 'admin'#User
-password = '669835'#Password of the user
+user = 'user'#User
+password = 'password'#Password of the user
 #USER
-playvol = 30#Volume of session
-termsel = ',124,125'#Term of session/Fill as ",n,m"
+playvol = 22#Volume of session
+termsel = ',1,2,3'#Term of session/Fill as ",n,m"
 #termsel = ',128,129,130,131,132,133'
 #USER
-LogAddr = '/home/pi/Documents/ITCTask/ITCStream/Log'
+LogAddr = '/home'
 #USER
 IsTest = False
 GetInfo = False
